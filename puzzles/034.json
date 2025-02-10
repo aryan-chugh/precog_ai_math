@@ -1,0 +1,18 @@
+{
+    "problem_id": "034",
+    "initial_string": "trimtrimmertrimmershstrimimmetrimtrimtrimrtrimtrimtrimtrimtrimtrimhimmer",
+    "transitions": [
+        {
+            "src": "trim",
+            "tgt": ""
+        },
+        {
+            "src": "trimmer",
+            "tgt": ""
+        },
+        {
+            "src": "shimmer",
+            "tgt": ""
+        }
+    ]
+}

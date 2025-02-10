@@ -1,0 +1,94 @@
+{
+    "problem_id": "012",
+    "initial_string": "A?",
+    "transitions": [
+        {
+            "src": "A?0",
+            "tgt": "B"
+        },
+        {
+            "src": "A?1",
+            "tgt": "A"
+        },
+        {
+            "src": "A?2",
+            "tgt": "C"
+        },
+        {
+            "src": "A?",
+            "tgt": "C"
+        },
+        {
+            "src": "B?0",
+            "tgt": "B"
+        },
+        {
+            "src": "B?1",
+            "tgt": "D"
+        },
+        {
+            "src": "B?2",
+            "tgt": "E"
+        },
+        {
+            "src": "B?*",
+            "tgt": "F"
+        },
+        {
+            "src": "C?*",
+            "tgt": "D"
+        },
+        {
+            "src": "C?0",
+            "tgt": "D"
+        },
+        {
+            "src": "C?",
+            "tgt": "E"
+        },
+        {
+            "src": "D?0",
+            "tgt": "D"
+        },
+        {
+            "src": "D?1",
+            "tgt": "D"
+        },
+        {
+            "src": "D?2",
+            "tgt": "C"
+        },
+        {
+            "src": "D?*",
+            "tgt": "D"
+        },
+        {
+            "src": "E?1",
+            "tgt": "F"
+        },
+        {
+            "src": "E?2",
+            "tgt": "B"
+        },
+        {
+            "src": "F?0",
+            "tgt": "F"
+        },
+        {
+            "src": "F?1",
+            "tgt": "F"
+        },
+        {
+            "src": "F?*",
+            "tgt": "A"
+        },
+        {
+            "src": "?",
+            "tgt": "!"
+        },
+        {
+            "src": "B!",
+            "tgt": ""
+        }
+    ]
+}

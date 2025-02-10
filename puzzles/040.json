@@ -1,0 +1,22 @@
+{
+    "problem_id": "040",
+    "initial_string": "HPWUDHPWUDBGRPDPHBGRPDPHKKGARNKBGRPDPHHPWUDBUKBYBUKBYBGRPDPHKKGARNKKKGARNKHPWUDKKGARNK",
+    "transitions": [
+        {
+            "src": "BUKBY",
+            "tgt": ""
+        },
+        {
+            "src": "KKGARNK",
+            "tgt": ""
+        },
+        {
+            "src": "HPWUD",
+            "tgt": ""
+        },
+        {
+            "src": "BGRPDPH",
+            "tgt": ""
+        }
+    ]
+}

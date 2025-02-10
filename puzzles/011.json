@@ -1,0 +1,82 @@
+{
+    "problem_id": "011",
+    "initial_string": "9876543210|CCCCCC",
+    "transitions": [
+        {
+            "src": "XXXXXXXXXX",
+            "tgt": "C"
+        },
+        {
+            "src": "IIIIIIIIII",
+            "tgt": "X"
+        },
+        {
+            "src": "CX",
+            "tgt": "XC"
+        },
+        {
+            "src": "CI",
+            "tgt": "IC"
+        },
+        {
+            "src": "XI",
+            "tgt": "IX"
+        },
+        {
+            "src": "0",
+            "tgt": "XXXIIIIIIII"
+        },
+        {
+            "src": "1",
+            "tgt": "XXXXIIII"
+        },
+        {
+            "src": "2",
+            "tgt": "XXXXXII"
+        },
+        {
+            "src": "3",
+            "tgt": "XXXXXXI"
+        },
+        {
+            "src": "4",
+            "tgt": "XXXXXXXII"
+        },
+        {
+            "src": "5",
+            "tgt": "CI"
+        },
+        {
+            "src": "6",
+            "tgt": "CXIII"
+        },
+        {
+            "src": "7",
+            "tgt": "CXXI"
+        },
+        {
+            "src": "8",
+            "tgt": "CXXXIIIIIII"
+        },
+        {
+            "src": "9",
+            "tgt": "CXXXXIIII"
+        },
+        {
+            "src": "C|C",
+            "tgt": ""
+        },
+        {
+            "src": "X|X",
+            "tgt": ""
+        },
+        {
+            "src": "I|I",
+            "tgt": ""
+        },
+        {
+            "src": "|",
+            "tgt": ""
+        }
+    ]
+}

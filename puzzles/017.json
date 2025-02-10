@@ -1,0 +1,42 @@
+{
+    "problem_id": "017",
+    "initial_string": "M",
+    "transitions": [
+        {
+            "src": "M",
+            "tgt": "MI"
+        },
+        {
+            "src": "I",
+            "tgt": "IS"
+        },
+        {
+            "src": "S",
+            "tgt": "SS"
+        },
+        {
+            "src": "S",
+            "tgt": "SI"
+        },
+        {
+            "src": "I",
+            "tgt": "IP"
+        },
+        {
+            "src": "P",
+            "tgt": "PP"
+        },
+        {
+            "src": "P",
+            "tgt": "PI"
+        },
+        {
+            "src": "I",
+            "tgt": "I"
+        },
+        {
+            "src": "MISSISSIPPI",
+            "tgt": ""
+        }
+    ]
+}

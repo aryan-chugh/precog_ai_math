@@ -1,0 +1,22 @@
+{
+    "problem_id": "044",
+    "initial_string": "EGMRKANFUAXUGQDNCTIEGMRKEGMRKHIKVLEGMRKGQDNCTIEGMRK",
+    "transitions": [
+        {
+            "src": "HIKVL",
+            "tgt": ""
+        },
+        {
+            "src": "ANFUAXU",
+            "tgt": ""
+        },
+        {
+            "src": "EGMRK",
+            "tgt": ""
+        },
+        {
+            "src": "GQDNCTI",
+            "tgt": ""
+        }
+    ]
+}

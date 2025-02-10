@@ -1,0 +1,18 @@
+{
+    "problem_id": "052",
+    "initial_string": "SSMISSSSSSSSISSISSPPISS",
+    "transitions": [
+        {
+            "src": "SS",
+            "tgt": "$$"
+        },
+        {
+            "src": "SS",
+            "tgt": ""
+        },
+        {
+            "src": "MISSISSIPPI",
+            "tgt": ""
+        }
+    ]
+}
