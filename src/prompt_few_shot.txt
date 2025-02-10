@@ -1,0 +1,122 @@
+Apply the following transitions in sequence (each transition "only" applies to the leftmost occurrence of the left hand side of the transition, in the string) to reduce the string to an empty string:    
+-- find the leftmost occurence of the left-hand side of the transition and then apply the transition.
+-- don't pick any random occurence.
+   
+Return the solution as a list of transition indices (0-based) that transform the initial string to an empty string.
+Don't provide the code but only the list of transitions. (the only things in curly braces must be the solution). 
+
+Format:
+{
+    "problem_id": "{problem.problem_id}",
+    "solution": [0, 1, 2]
+}
+
+1. Keep track of the string under consideration and keep on applying the transitions until the string converts to an empty string...
+2. Always check which all transitions have the left side present in the current state of the string, only try to apply the valid transitions.
+3. Try to reach the empty state of the string being tracked.
+4. There is no limit on the number of iterations required.
+
+
+
+Here are a few samples from which you could derive patterns 
+(try to interpret what is happening in these examples). Also, use your existing knowledge in addition to these patterns.
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 1:
+{
+    initial_string: "CCBBAA"
+    transitions: {
+        "BA" : "AB",
+        "CA": "AC",
+        "CB": "BC",
+        "ABCABC" : "",
+    }
+}
+-----------------------------------------------------------
+Solution Example 1:
+{
+    [0, 0, 1, 1, 2, 2, 0, 1, 2, 3]
+}
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 2:
+{
+    initial_string: "2^2^2^1^2^2^2^2^1^0^0^0"
+    transitions :
+    {
+        "0^0":"1",
+        "0^1":"1",
+        "0^2":"1",
+        "1^0":"1",
+        "1^1":"1",
+        "1^2":"1",
+        "2^0":"1",
+        "2^1":"2",
+        "2^2":"4",
+        "1":""
+    }
+}
+-----------------------------------------------------------
+Solution Example 2: 
+{
+    [5, 5, 5, 5, 7, 7, 6, 7, 6, 7, 6, 9]
+}
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 3:
+{
+    initial_string:"...###"
+    transitions: {
+        ".#":"#.",
+        ".##":"##.",
+        "#.#.#.":"",
+    }
+}
+-----------------------------------------------------------
+Solution Example 3:
+{
+    [0, 1, 1, 1, 0, 2]
+}
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 4:
+{
+    initial_string = "(^O^)"
+    transitions = {
+        "" : "*",
+        "" : "~",
+        "*(^O^)": "(^O^)*",
+        "~(^O^)": "(^O^)~",
+        "**~~*(^O^)*~~**": "
+    }
+}
+-----------------------------------------------------------
+Solution Example 4 :
+{
+    [0, 2, 0, 2, 1, 3, 1, 3, 0, 2, 0, 1, 1, 0, 0, 4]
+}
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 5:
+{
+    initial_string=""
+    transitions : {
+        "0o" :"o0",
+        "o0" : "0o",
+        "0>|~~|" : "|~~|<0",
+        "0>|~~|" : "|~~|<0",
+        "00>|~~| ": "|~~|<00",
+        "|~~|<0" : "0>|~~|",
+        "|~~|<0" : "0>|~~|",
+        "|~~|<00" : "00>|~~|",
+        "|~~|<oo0" : ""
+    }
+}
+-----------------------------------------------------------
+Solutions Example 5:
+{
+    [1,1,4,6,0,2,0,6,4,8]
+}
+-----------------------------------------------------------

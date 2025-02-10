@@ -1,0 +1,251 @@
+Apply the following transitions in sequence (each transition "only" applies to the leftmost occurrence of the left hand side of the transition, in the string) to reduce the string to an empty string:    
+-- find the leftmost occurence of the left-hand side of the transition and then apply the transition.
+-- don't pick any random occurence.
+
+Return the solution as a list of transition indices (0-based) that transform the initial string to an empty string.
+Don't provide the code but only the list of transitions. (the only things in curly braces must be the solution). 
+
+Format:
+{{
+    "problem_id": "{problem.problem_id}",
+    "solution": [0, 1, 2]
+}}
+
+1. Keep track of the string under consideration and keep on applying the transitions until the string converts to an empty string...
+2. Always check which all transitions have the left side present in the current state of the string, only try to apply the valid transitions.
+3. Try to reach the empty state of the string being tracked.
+4. There is no limit on the number of iterations required.
+
+
+
+Here are a few samples from which you could derive patterns 
+(try to interpret what is happening in these examples). Also, use your existing knowledge in addition to these patterns.
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 1:
+{
+    initial_string: "CCBBAA"
+    transitions: {
+        "BA" : "AB",
+        "CA": "AC",
+        "CB": "BC",
+        "ABCABC" : "",
+    }
+}
+-----------------------------------------------------------
+Solution Example 1:
+{
+    [0, 0, 1, 1, 2, 2, 0, 1, 2, 3]
+}
+
+Reasoning: 
+Step 1 : First we note that there is no addition of letters in the string. It only involves the movement of the characters according to the transitions.
+Step 2 : Then we note which all transitions go towards the empty string (here the transition 3 is the one we found out).
+Step 3 : Then we begin trying to mimic this empty transiting string using the initial string.
+Step 4 : The first 4 transitions move the character 'A' to the front of the string, as we notice is the requirement to create the empty string (there is an
+A in the beginning of the final string that transits to "")
+Step 5 : The next 2 transitions are to move the character 'B' to the front of the string just behind A, thus we move closer to the final string.
+Step 6 : We find that the 1st C is already at its correct place. So, we will try not to disturb it until absolutely necessary.
+Step 7 : We do the next 2 transitions to move the 2nd 'A' to its correct location (as per the final string) within the string. 
+Step 8 : Finally, the 2nd B is moved to its appropriate location using the last transition to obtain the final string. ("CB" occurs only at the end of the string)
+Step 9 : We apply the 3rd transition to reach the empty string.
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 2:
+{
+    initial_string: "2^2^2^1^2^2^2^2^1^0^0^0"
+    transitions :
+    {
+        "0^0":"1",
+        "0^1":"1",
+        "0^2":"1",
+        "1^0":"1",
+        "1^1":"1",
+        "1^2":"1",
+        "2^0":"1",
+        "2^1":"2",
+        "2^2":"4",
+        "1":""
+    }
+}
+-----------------------------------------------------------
+Solution Example 2: 
+{
+    [5, 5, 5, 5, 7, 7, 6, 7, 6, 7, 6, 9]
+}
+
+Reasoning : 
+Step 1: We identify this problem to have some kind of mathematical relationship (as we see that 2^0 = 1 in mathematics and is mapped correspondingly).
+Step 2: We verify all the transitions and come to the conclusion that the ^ actually represents the exponential sign.
+Step 3: All we need to do is to find the order in which need to apply the exponential. (We have cleared out the problem statement)
+Step 4: We note that 2^2 transition if at all used will cause 4 to come into the string, but there is no way to get rid of this 4 later on. Now, as 4 is not even in the final string, we figure out that we won't be using this transition at all.
+Step 5: 1 ^ 2 is always 1, hence it helps to reduce the count of 2's in the string considering that we don't want to combine two 2's as reasoned out in Step 4.
+Step 6: So, we apply, first 4 transitions to get rid of as many 2's as we can
+Step 7: Now the role of the middle 1's is over so we remove it using the 2^1 : 2 transition.
+Step 8: We want to reach the final string of 1. So we know that 1^0, 2^0, 1^2, 0^0, 0^1, 0^2 can only turn out to be useful..
+Step 9: We only see 2^0 getting applied so we apply it. The 1 produced is absorbed using the 2^1 transition. 
+Step 10: Using the Step 9 observation we repeatedly apply this transition and reach the final string of 1.
+Step 11: "1"->"" is then applied to obtain the empty string.
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 3:
+{
+    initial_string:"....###"
+    transitions: {
+        ".#":"#.",
+        ".##":"##.",
+        "#.#..#.":"",
+    }
+}
+-----------------------------------------------------------
+Solution Example 3:
+{
+    [0, 1, 1, 1, 0, 2]
+}
+
+Reasoning:
+Step 1: 
+    We see that all the patterns are to be built from the right end, because later we cannot make changes to the right end as there are occurences of the lefthand side of the transitions towards the left also. 
+    We interpret the transitions :
+    0 : Replace ".#" with "#."
+    (This effectively “swaps” a dot and a hash so that a hash moves one position to the left.)
+    
+    1 : Replace ".##" with "##."
+    (This shifts a pair of consecutive hashes one position to the left by moving the preceding dot to the right of the pair.)
+
+    2 : Replace "#.#.#." with ""
+    (When the string forms an alternating pattern of hashes and dots, this rule clears the entire string.)
+
+Step 2: We want to know what the transitions actually help in doing...
+    - We note that the last hash can only be moved with the help of a pair move.. So our job is to ensure that no pair exists before this in the string.
+    - To do this we take the following steps:
+Step 3: 
+    Leftmost # is separated from the other two hashes(using transition 0). Which effectively leaves the last two hashes in a pair, this in turn helps us to move the last hash. (transition 1)
+    -- now, we want to move the second hash leftward inorder to separate it from the last hash, as last hash is in the correct position. 
+    -- so, we see that keeping 1st hash such that it is just next to the new position of the moved pair helps..
+
+    Now the leftmost pair which can be moved is of the first 2 hashes. We move these hashes and separate them from the third hash. (transition 1)
+Step 4: 
+    We again move the first pair, until the 2nd hash reaches its correct position. (transition 1 once)
+Step 5: 
+    Finally we move the leftmost hash towards the left using the 0 transition to reach the final string.
+Step 6: Apply Transition 2. Replace "#..#.#." with the empty string "". The string is now completely cleared.
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 4:
+{
+    initial_string = "(^O^)"
+    transitions = {
+        "" : "*",
+        "" : "~",
+        "*(^O^)": "(^O^)*",
+        "~(^O^)": "(^O^)~",
+        "**~~*(^O^)*~~**": "
+    }
+}
+-----------------------------------------------------------
+Solution Example 4 :
+{
+    [0, 2, 0, 2, 1, 3, 1, 3, 0, 2, 0, 1, 1, 0, 0, 4]
+}
+
+Step 1: We note that as the transitions apply to the leftmost occurence, hence we would not be able to modify the occurences towards the right if there exists a left occurence of the string.
+Hence, we try to replicate the final string pattern from the right end. This is true unless we can very clearly come from the left end without multiple occurences of the left hand side of the transitions.
+Step 2: To get a * at the rightmost end we introduce a * at the leftmost end as "" string occurs at the beginning of the string.
+Step 3: Now we use the transition 2 to move it towards the right of the string.
+Step 4: We continue this process with the subsequent occurences of ~ and *, as we try to match the final string with the initial string from right to left.
+Step 5: Finally, when the strings match we use transition 4 to get the empty string "".
+
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 5:
+{
+    initial_string="ooO>|~~|"
+    transitions : {
+        "Oo" :"oO",
+        "oO" : "Oo",
+        "O>|~~|" : "|~~|<O",
+        "o>|~~|" : "|~~|<o",
+        "oo>|~~| ": "|~~|<oo",
+        "|~~|<O" : "O>|~~|",
+        "|~~|<o" : "o>|~~|",
+        "|~~|<oo" : "oo>|~~|",
+        "|~~|<ooO" : "",
+        "cross_the_bridge": ""
+    }
+}
+-----------------------------------------------------------
+Solutions Example 5:
+{
+    [1,1,4,6,0,2,0,6,4,8]
+}
+Reasoning :
+Step 1: We look for hints in the problem. We find cross_the_bridge as a useless transition, just indicating what the problem is trying to represent.
+Step 2: We visualise. We note that |~~| is the bridge and > is the boat to cross the bridge.
+Step 3: We want to find a sequence of events such that "ooO" cross the bridge. 
+Step 4: We note that in this game, we change resequence the persons going onto the bridge.
+Step 5: Then we note that oo can come together across the bridge from either end.
+Step 6: We plan the solution from general knowledge as follows:
+        1. First resequence to Ooo such that oo can take the boat first. (1, 1)
+        2. Now as both the oo's have reached and we need to get the O to the other end as well, we would want one of the small o's to get back to provide the boat to O.(4, 6)
+        3. We resequence to let O come close to the boat. Then O comes to the far end. (0, 2)
+        4. 1 o is left to cross still
+        5. We resequence the far end to let the other o to come to this end to pick up the other small o. (as they can cross together) (0, 6)
+        6. Finally, oo also cross the river and we reach the final string. (4)
+Step 7: We apply the 8th transition to get the empty string. (8)
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 6: 
+{
+    initial_string="AAAAAA"
+    transitions : {
+        "A": "B",
+        "B": "A",
+        "ABABAB": ""
+    }
+}
+-----------------------------------------------------------
+Solutions Example 6:
+{
+    [0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,1]
+}
+
+Reasoning: 
+Step 1: We note that as the transitions apply to the leftmost occurence, hence we would not be able to modify the occurences towards the right if there exists a left occurence of the string.
+Hence, we try to replicate the final string pattern from the right end. This is true unless we can very clearly come from the left end without multiple occurences of the left hand side of the transitions.
+Step 2: To convert the last letter to B, we need to convert all the A's to B, because there is no way to directly change the last A.
+Step 3: To convert the B at the second last position to A, we need to convert all the preceding occurences to A as well.
+Step 4: We continue this process, until we reach the final string.
+Step 5: we use transition 3 and reach the empty string "". 
+-----------------------------------------------------------
+-----------------------------------------------------------
+Example 7: 
+{
+    initial_string="UMLLBRELLALL"
+    transitions : {
+        "LL": "$$",
+        "LL": "",
+        "$$": "LL",
+        "UMBRELLA": ""
+    }
+}
+-----------------------------------------------------------
+Solutions Example 7:
+{
+    [1, 0, 1, 2, 3]
+}
+
+Reasoning:
+Step 1: We find out that the nature of the transitions is as follows :
+    0 : convert LL -> $$ which could ideally be used to preserve the pattern of LL (as now LL -> "" transition will not match $$) when we want to delete the later occurrences of LL.
+    1 : LL -> "" remove LL pairs which could be used to reach the final solution.
+    2 : convert $$ -> LL once the LL -> ... transitions have been performed at the required places.
+    3 : the final string which will be used to lead to the empty string (UMBRELLA) ... (we will want to convert the input string to "UMBRELLA")
+Step 2: We find out that the first occurrence of LL after M is not present in the final string. So we just remove it using the transition 1.
+Step 3: Now after modification the first occurence of LL is after E which is exactly where it is in the target string, so we would not like to disturb it and preserve it in order to match the final string.
+    To preserve, we convert it to $$, such that we could now move onto the next LL transition.
+Step 4: Finally, the now first occurrence of LL after A is not in the final string, so we delete it.
+Step 5: Now we have remvoed the unnecessary occurences of LL, so we convert the $$ back to LL to match the final string.
+Step 6: We apply transition 3 to reach the empty string.  
+-----------------------------------------------------------
